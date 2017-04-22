@@ -67,12 +67,9 @@ describe('Korean', () => {
       let presentWord = kc.conjugate('으다', {tense: 'present'});
       expect(presentWord).to.equal('어');
 
-      presentWord = kc.conjugate('부르다', {tense: 'present'});
-      expect(presentWord).to.equal('불러');
-
       presentWord = kc.conjugate('쓰다', {tense: 'present'});
       expect(presentWord).to.equal('써');
-  });
+    });
     it('should conjugate 이다 words correctly', () => {
       const kc = new Korean();
       let presentWord = kc.conjugate('이다', {tense: 'present'});
@@ -83,6 +80,41 @@ describe('Korean', () => {
 
       presentWord = kc.conjugate('지다', {tense: 'present'});
       expect(presentWord).to.equal('져');
-   });
+    });
+    it('should conjugate ㅏ다,ㅐ다,ㅓ다 words correctly', () => {
+      const kc = new Korean();
+      let presentWord = kc.conjugate('자다', {tense: 'present'});
+      expect(presentWord).to.equal('자');
+
+      presentWord = kc.conjugate('내다', {tense: 'present'});
+      expect(presentWord).to.equal('내');
+
+      presentWord = kc.conjugate('서다', {tense: 'present'});
+      expect(presentWord).to.equal('서');
+    });
+
+    // Will fail until Issue #12 is resolved.
+    it('should conjugate ㅗ르 and ㅜ르 words correctly', () => {
+      const kc = new Korean();
+      let presentWord = kc.conjugate('모르다', {tense: 'present'});
+      expect(presentWord).to.equal('몰라');
+      
+      presentWord = kc.conjugate('부르다', {tense: 'present'});
+      expect(presentWord).to.equal('불러');
+
+      presentWord = kc.conjugate('서두르다', {tense: 'present'});
+      presentWord = kc.conjugate('서둘러', {tense: 'present'});
+    });
+
+    // new past tense test cases
+    // Will fail until Issue #12 is resolved.
+    // it.only < test just that case
+    it.only('should run doPast function', () => {
+      const kc = new Korean();
+      let pastWord = kc.conjugate('공부하다', {tense: 'past'});
+      // this check if actual ouput === expected result
+      expect(pastWord).to.equal('공부했어');
+
+    });    
  });
 });
