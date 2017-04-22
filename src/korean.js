@@ -7,10 +7,11 @@ class Korean {
      case 'present':
        return this.doPresent(word);
        break;
-      // case 'past':
-      //   return this.doPast(word);
+     case 'past':
+       return this.doPast(word);
+       break;
      default:
-     return 'Could not find any rules for conjugation';
+       return 'Could not find any rules for conjugation';
    }
  }
 
@@ -76,8 +77,38 @@ class Korean {
   } // end of presentWord function
 
   doPast(word) {
-    let presentWord = doPresent(word);
     // stuff for past tense
+    //Steps:
+    // call the doPresent function on word to get the present tense form.
+    // past tense word will ge stored here
+    let pastWord = 'empty';
+    let presentWord = this.doPresent(word); // 공부해
+    console.log('presentword:', presentWord);
+    
+    // breakdown (present tense word)
+    let breakDownWord = breakdown(presentWord[presentWord.length-1]);
+    // expected output: breakDownWord: [18,1]
+    // [ Initial: 18.  ㅎ, Medial: 1.  ㅐ]
+    console.log('breakDownWord:', breakDownWord);
+    // push ㅆ to the array unicode, final Jamo, 20 ㅆ into 
+    let addedFinalJamoToBreakDownWord = breakDownWord.push(20);
+    //newSyllable.push(20)
+    console.log('addedFinalJamoToBreakDownWord:', addedFinalJamoToBreakDownWord);
+    // call the combine function
+    //newSyllable = combineSymbols(newSyllable);
+    let finalPastWord = combineSymbols(addedFinalJamoToBreakDownWord);
+    console.log('finalPastWord:', finalPastWord);
+    // concatenate '어'
+    //conjugate = word.slice(0, wordLength - 1);
+
+    let firstTwoWordsOfPastWord = word.slice(0,presentWord.length - 1);
+    console.log('firstTwoWordsOfPastWord:', firstTwoWordsOfPastWord);
+    //return conjugate.concat('어');
+
+    pastWord = firstTwoWordsOfPastWord.concat('어');
+    console.log('pastWord:', pastWord);
+
+    return pastWord;
   }
 } // end for class
 
@@ -111,7 +142,7 @@ const breakdown = (input) => {
 const combineSymbols = (input) => {
     let initialValue = input[0] * 588;
     let medialValue = input[1] * 28;
-    let finalValue = input[3] ? input[3] : 0;
+    let finalValue = input[2] ? input[2] : 0;
     let total = initialValue + medialValue + finalValue + 44032;
     let finalWord = String.fromCharCode(total);
     return finalWord;

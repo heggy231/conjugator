@@ -105,5 +105,16 @@ describe('Korean', () => {
       presentWord = kc.conjugate('서두르다', {tense: 'present'});
       presentWord = kc.conjugate('서둘러', {tense: 'present'});
     });
+
+    // new past tense test cases
+    // Will fail until Issue #12 is resolved.
+    // it.only < test just that case
+    it.only('should run doPast function', () => {
+      const kc = new Korean();
+      let pastWord = kc.conjugate('공부하다', {tense: 'past'});
+      // this check if actual ouput === expected result
+      expect(pastWord).to.equal('공부했어');
+
+    });    
  });
 });
